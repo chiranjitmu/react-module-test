@@ -1,0 +1,97 @@
+.group-container {
+  overflow-y: auto;
+  height: 100vh;
+}
+
+.group-header {
+  font-family: "Roboto", sans-serif;
+  font-weight: 500;
+  font-size: larger;
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+  width: 25%;
+  position: fixed;
+}
+
+.group-names {
+  margin-top: 3rem;
+  padding: 2rem;
+}
+
+.plus-button {
+  color: #16008b;
+  font-size: 2.5rem;
+  position: fixed;
+  bottom: 2rem;
+  left: 15rem;
+  cursor: pointer;
+}
+
+.modal-main {
+  background-color: white;
+  width: 30%;
+  height: 30%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: fixed;
+  left: 35%;
+  top: 35%;
+  padding: 1rem;
+  font-family: "Roboto", sans-serif;
+  font-weight: 500;
+}
+
+.modal-header,
+.groupname-label,
+.groupcolor-label {
+  font-size: large;
+  text-align: center;
+}
+
+.groupname-input {
+  border-radius: 10px;
+  border: 1px solid black;
+  padding: 0.5rem;
+}
+
+.groupcolor-input {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.groupname-main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+}
+
+.groupcolor-main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.create-button {
+  background-color: #001f8b;
+  color: white;
+  border: none;
+  font-size: medium;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  margin-top: 1.5rem;
+}
+
+@media screen and (max-width: 800px) {
+  .group-header {
+    width: 100%;
+  }
+
+  .plus-button {
+    left: 90%;
+  }
+}

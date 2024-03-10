@@ -1,0 +1,43 @@
+.notes-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  height: 100vh;
+}
+
+.notes-center {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.notes-image {
+  width: 30rem;
+}
+
+.notes-header {
+  font-family: "Roboto", sans-serif;
+  font-weight: 700;
+  font-size: xx-large;
+}
+
+.notes-para {
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
+  font-size: medium;
+  display: grid;
+  place-items: center;
+  margin: 0;
+  width: 50%;
+  text-align: justify;
+}
+
+.notes-footer {
+  font-family: "Roboto", sans-serif;
+  font-weight: 500;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
