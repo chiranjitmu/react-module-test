@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./Group.css";
 import Modal from "react-modal";
 import { FaPlusCircle } from "react-icons/fa";
@@ -15,27 +15,74 @@ const colorNames = [
 ];
 
 const Group = () => {
-  const [modal, setModal] = useState(false);
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [group, setGroup] = useState({
+    groupname: "",
+    groupcolor: "",
+    groupletter: "",
+  });
+  const groupData = useRef([]);
+
+  useEffect(() => {
+    const storedGroupData = JSON.parse(localStorage.getItem("Group")) || [];
+    groupData.current = storedGroupData;
+  }, []);
 
   const closeModal = () => {
-    setModal(false);
+    setModalIsOpen(false);
+  };
+
+  const handleChange = (e) => {
+    setGroup((prevGroup) => ({
+      ...prevGroup,
+      [e.target.name]: e.target.value,
+    }));
   };
 
   const createGroup = () => {
-    setModal(false);
+    let capitalizedWords = "";
+    let firstLetters = "";
+    let wordsArray1 = group.groupname.split(" ");
+
+    // words capital
+    wordsArray1.forEach(function (word) {
+      capitalizedWords += word.charAt(0).toUpperCase() + word.slice(1) + " ";
+    });
+
+    // split capitalized words
+    let wordsArray2 = capitalizedWords.split(" ");
+
+    // extract first letters
+    wordsArray2.forEach(function (word) {
+      firstLetters += word.charAt(0);
+    });
+
+    groupData.current = [
+      ...groupData.current,
+      {
+        groupname: capitalizedWords,
+        groupletter: firstLetters.slice(0, 2),
+      },
+    ];
+
+    localStorage.setItem("Group", JSON.stringify(groupData.current));
+    closeModal();
   };
 
   return (
     <div className="group-container">
       <h1 className="group-header">Pocket Notes</h1>
-      <div className="group-name"></div>
-      <div className="plus-button" onClick={() => setModal(true)}>
+      <div className="group-name">
+        {groupData.current.map((group, index) => (
+          <div key={index}>{group.groupname}</div>
+        ))}
+      </div>
+      <div className="plus-button" onClick={() => setModalIsOpen(true)}>
         <FaPlusCircle />
       </div>
 
-      {/* modal */}
       <Modal
-        isOpen={modal}
+        isOpen={modalIsOpen}
         onRequestClose={closeModal}
         contentLabel="Group Create"
         className="modal-main"
@@ -50,6 +97,9 @@ const Group = () => {
             placeholder="Enter group name"
             id="group-name"
             className="groupname-input"
+            value={group.groupname}
+            onChange={handleChange}
+            name="groupname"
           />
         </div>
 
@@ -66,12 +116,21 @@ const Group = () => {
                   borderRadius: "100%",
                   height: "1.5rem",
                   width: "1.5rem",
+                  cursor: "pointer",
+                  border:
+                    group.groupcolor === color ? "2px solid black" : "none",
                 }}
+                onClick={() =>
+                  setGroup((prevGroup) => ({
+                    ...prevGroup,
+                    groupcolor: color,
+                  }))
+                }
               />
             ))}
           </div>
         </div>
-        <div style={{ textAlign: "end" }}>
+        <div className="create-button-main">
           <button className="create-button" onClick={createGroup}>
             Create
           </button>

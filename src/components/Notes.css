@@ -4,6 +4,7 @@
   justify-content: space-between;
   align-items: center;
   height: 100vh;
+  overflow: hidden;
 }
 
 .notes-center {
@@ -40,4 +41,10 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+@media screen and (max-width: 600px){
+  .notes-image{
+    width: 20rem;
+  }
 }

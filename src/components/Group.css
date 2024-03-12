@@ -76,6 +76,11 @@
   margin-top: 1.5rem;
 }
 
+.create-button-main {
+  text-align: end;
+  width: 100%;
+}
+
 .create-button {
   background-color: #001f8b;
   color: white;
@@ -87,11 +92,20 @@
 }
 
 @media screen and (max-width: 800px) {
+  .modal-main {
+    width: 100%;
+    left: 0;
+  }
+
   .group-header {
     width: 100%;
   }
 
   .plus-button {
-    left: 90%;
+    left: 85%;
+  }
+
+  .create-button-main {
+    text-align: center;
   }
 }
