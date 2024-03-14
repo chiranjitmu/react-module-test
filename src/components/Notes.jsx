@@ -4,13 +4,14 @@ import Notesimg from "../assets/notes-page.png";
 import { IoMdLock } from "react-icons/io";
 import { IoArrowBack } from "react-icons/io5";
 
-const Notes = () => {
+const Notes = ({ handleBack }) => {
   const [notesTrue, setNotesTrue] = useState(false);
   const presentgroup = JSON.parse(localStorage.getItem("PresentGroup"));
 
-const handleChange = () => {
-  
-}
+  const handleChange = () => {
+    handleBack();
+    setNotesTrue(false)
+  };
 
   return (
     <>
