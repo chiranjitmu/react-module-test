@@ -41,6 +41,11 @@ const Group = () => {
   };
 
   const createGroup = () => {
+    if (group.groupname === "" || group.groupcolor === "") {
+      alert("Should enter name and color");
+      return;
+    }
+
     let capitalizedWords = "";
     let firstLetters = "";
     let wordsArray1 = group.groupname.split(" ");
@@ -58,10 +63,21 @@ const Group = () => {
       firstLetters += word.charAt(0);
     });
 
+    // Check if groupname already exists
+    const existingGroup = groupData.current.find(
+      (item) =>
+        item.groupname.trim().toLowerCase() ===
+        capitalizedWords.trim().toLowerCase()
+    );
+    if (existingGroup) {
+      alert("Group with this name already exists!");
+      return;
+    }
+
     groupData.current = [
       ...groupData.current,
       {
-        groupname: capitalizedWords,
+        groupname: capitalizedWords.trim(),
         groupletter: firstLetters.slice(0, 2),
         groupcolor: group.groupcolor,
       },

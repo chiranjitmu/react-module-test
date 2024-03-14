@@ -4,11 +4,11 @@ import Notes from "../components/Notes";
 import "./Home.css";
 
 const Home = () => {
-  const [notes, setNotes] = useState(false);
+  const [notesTrue, setNotesTrue] = useState(false);
   const [isSmallScreen, setIsSmallScreen] = useState(false);
 
   const handleBack = () => {
-    setNotes(false);
+    setNotesTrue(false);
   };
 
   useEffect(() => {
@@ -16,7 +16,7 @@ const Home = () => {
       setIsSmallScreen(window.innerWidth < 800);
     };
 
-    handleResize(); 
+    handleResize();
     window.addEventListener("resize", handleResize);
     return () => {
       window.removeEventListener("resize", handleResize);
@@ -27,14 +27,14 @@ const Home = () => {
     <main className="home-page">
       <aside
         className="group-main"
-        style={isSmallScreen ? { display: notes ? "none" : "block" } : {}}
+        style={isSmallScreen ? { display: notesTrue ? "none" : "block" } : {}}
       >
         <Group />
       </aside>
 
       <section
         className="notes-main"
-        style={isSmallScreen ? { display: notes ? "block" : "none" } : {}}
+        style={isSmallScreen ? { display: notesTrue ? "block" : "none" } : {}}
       >
         <Notes handleBack={handleBack} />
       </section>

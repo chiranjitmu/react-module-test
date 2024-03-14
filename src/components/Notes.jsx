@@ -1,16 +1,70 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./Notes.css";
 import Notesimg from "../assets/notes-page.png";
-import { IoMdLock } from "react-icons/io";
+import { IoMdLock, IoMdSend } from "react-icons/io";
 import { IoArrowBack } from "react-icons/io5";
 
 const Notes = ({ handleBack }) => {
   const [notesTrue, setNotesTrue] = useState(false);
-  const presentgroup = JSON.parse(localStorage.getItem("PresentGroup"));
+  const [isDisabled, setIsDisabled] = useState(true);
+  const [notesData, setNotesData] = useState("");
+  const presentgroup = JSON.parse(localStorage.getItem("PresentGroup")) || {};
+  const [notesList, setNotesList] = useState([]);
+  const notesContainerRef = useRef();
 
-  const handleChange = () => {
+  useEffect(() => {
+    const storedNotes = JSON.parse(localStorage.getItem("GroupNotes")) || [];
+    const filteredNotes = storedNotes.filter(
+      (note) => note.groupName === presentgroup.groupname
+    );
+    setNotesList(filteredNotes);
+  }, []);
+
+  const scrollToBottom = () => {
+    setTimeout(() => {
+      notesContainerRef.current.scrollIntoView({
+        behavior: "smooth",
+        block: "end",
+      });
+    }, 200);
+  };
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [notesList]);
+
+  const handleChangeBack = () => {
     handleBack();
-    setNotesTrue(false)
+    setNotesTrue(false);
+  };
+
+  const handleSubmit = () => {
+    const now = new Date();
+    const options = { day: "numeric", month: "short", year: "numeric" };
+    const formattedDate = now
+      .toLocaleDateString("en-US", options)
+      .replace(",", "");
+    const formattedTime = now.toLocaleTimeString("en-US", {
+      hour: "numeric",
+      minute: "2-digit",
+      hour12: true,
+    });
+    const formattedDateTime = `${formattedDate}, ${formattedTime}`;
+
+    const newNote = {
+      notesData,
+      timeStamp: formattedDateTime,
+      groupName: presentgroup.groupname || "",
+    };
+    const storedNotes = JSON.parse(localStorage.getItem("GroupNotes")) || [];
+    const updatedNotes = [...storedNotes, newNote];
+    localStorage.setItem("GroupNotes", JSON.stringify(updatedNotes));
+    setNotesData("");
+    const filteredNotes = updatedNotes.filter(
+      (note) => note.groupName === presentgroup.groupname
+    );
+    setNotesList(filteredNotes);
+    setIsDisabled(true);
   };
 
   return (
@@ -18,7 +72,7 @@ const Notes = ({ handleBack }) => {
       {notesTrue ? (
         <main style={{ height: "100vh" }}>
           <header className="header">
-            <span className="back-icon" onClick={handleChange}>
+            <span className="back-icon" onClick={handleChangeBack}>
               <IoArrowBack />
             </span>
             <span
@@ -37,13 +91,39 @@ const Notes = ({ handleBack }) => {
             </span>
             <h1>{presentgroup.groupname}</h1>
           </header>
-          <section className="notes-section">notes</section>
+          <section className="notes-section">
+            {notesList.map((data, index) => (
+              <div
+                key={index}
+                className="notes-data-section"
+                ref={notesContainerRef}
+              >
+                <div className="notes-datastore">
+                  <p className="notes-data">{data.notesData}</p>
+                  <p className="notes-timestamp">{data.timeStamp}</p>
+                </div>
+              </div>
+            ))}
+          </section>
           <footer className="footer-section">
             <textarea
               type="text"
               placeholder="Enter your text here..........."
               className="notes-input"
+              value={notesData}
+              onChange={(e) => {
+                setNotesData(e.target.value);
+                setIsDisabled(false);
+              }}
             />
+            <button
+              disabled={isDisabled}
+              className="send-icon"
+              onClick={handleSubmit}
+              style={{ color: isDisabled ? "#ABABAB" : "#001f8b" }}
+            >
+              <IoMdSend />
+            </button>
           </footer>
         </main>
       ) : (
