@@ -1,3 +1,48 @@
+.header {
+  height: 8%;
+  background-color: #001f8b;
+  color: white;
+  padding: 0.5rem;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  font-family: "Roboto", sans-serif;
+  font-weight: 500;
+  font-size: small;
+  gap: 0.4rem;
+}
+
+.back-icon {
+  display: none;
+}
+
+.notes-section {
+  height: 70%;
+}
+
+.footer-section {
+  height: 19.5%;
+  background-color: #001f8b;
+  display: grid;
+  place-items: center;
+  box-sizing: border-box;
+}
+
+.notes-input {
+  min-height: 8vh;
+  min-width: 90%;
+  max-height: 8vh;
+  max-width: 90%;
+  padding: 1rem;
+  border: none;
+  border-radius: 5px;
+}
+
+.notes-input::-webkit-scrollbar {
+  display: none;
+}
+
+/* notes default */
 .notes-container {
   display: flex;
   flex-direction: column;
@@ -42,8 +87,20 @@
   align-items: center;
 }
 
+@media screen and (max-width: 800px) {
+  .back-icon {
+    display: block;
+    font-size: x-large;
+  }
+}
+
 @media screen and (max-width: 600px) {
   .notes-image {
     width: 20rem;
+  }
+
+  .notes-input {
+    min-width: 60%;
+    max-width: 60%;
   }
 }

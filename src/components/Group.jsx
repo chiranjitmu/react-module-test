@@ -21,14 +21,15 @@ const Group = () => {
     groupcolor: "",
     groupletter: "",
   });
-  const groupData = useRef([]);
-
-  useEffect(() => {
-    const storedGroupData = JSON.parse(localStorage.getItem("Group")) || [];
-    groupData.current = storedGroupData;
-  }, []);
+  const groupData = useRef(JSON.parse(localStorage.getItem("Group")) || []);
+  const [presentGroupIndex, setPresentGroupIndex] = useState(null);
 
   const closeModal = () => {
+    setGroup({
+      groupname: "",
+      groupcolor: "",
+      groupletter: "",
+    });
     setModalIsOpen(false);
   };
 
@@ -62,6 +63,7 @@ const Group = () => {
       {
         groupname: capitalizedWords,
         groupletter: firstLetters.slice(0, 2),
+        groupcolor: group.groupcolor,
       },
     ];
 
@@ -69,12 +71,44 @@ const Group = () => {
     closeModal();
   };
 
+  const handleGroupClick = (index) => {
+    setPresentGroupIndex(index);
+    localStorage.setItem(
+      "PresentGroup",
+      JSON.stringify(groupData.current[index])
+    );
+  };
+
   return (
     <div className="group-container">
       <h1 className="group-header">Pocket Notes</h1>
       <div className="group-name">
         {groupData.current.map((group, index) => (
-          <div key={index}>{group.groupname}</div>
+          <div
+            key={index}
+            className="group-name-data"
+            onClick={() => handleGroupClick(index)}
+            style={{
+              backgroundColor: presentGroupIndex === index ? "gray" : "",
+              borderRadius: presentGroupIndex === index ? "10px" : "",
+              padding: presentGroupIndex === index ? "0.3rem" : "",
+            }}
+          >
+            <span
+              style={{
+                backgroundColor: group.groupcolor,
+                width: "3rem",
+                height: "3rem",
+                display: "grid",
+                placeItems: "center",
+                borderRadius: "100%",
+                color: "white",
+              }}
+            >
+              {group.groupletter}
+            </span>
+            <p>{group.groupname}</p>
+          </div>
         ))}
       </div>
       <div className="plus-button" onClick={() => setModalIsOpen(true)}>

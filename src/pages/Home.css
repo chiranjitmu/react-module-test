@@ -6,12 +6,6 @@
   width: 100%;
 }
 
-.group-main {
-  width: 25%;
-  min-width: 310px;
-  height: 100%;
-}
-
 .notes-main {
   height: 100%;
   width: 75%;
@@ -19,13 +13,19 @@
   background-color: #dae5f5;
 }
 
+.group-main {
+  width: 25%;
+  min-width: 310px;
+  height: 100%;
+}
+
 @media screen and (max-width: 800px) {
   .notes-main {
     width: 100%;
+    display: none;
   }
 
   .group-main {
     width: 100%;
-    display: none;
   }
 }
