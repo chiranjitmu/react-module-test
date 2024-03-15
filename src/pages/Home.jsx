@@ -10,7 +10,7 @@ const Home = () => {
 
   const handleGroupClickinterval = (clicked) => {
     setSelectedGroup(clicked);
-    setNotesTrue(true)
+    setNotesTrue(true);
   };
 
   const handleBack = () => {

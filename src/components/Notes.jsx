@@ -149,8 +149,11 @@ const Notes = ({ handleBack, selectedGroup }) => {
           {!isSmallScreen ? (
             <div
               className="notes-container"
-              onClick={() => setNotesTrue(true)}
-              onMouseEnter={() => alert("Click to Start")}
+              onMouseEnter={() =>
+                setTimeout(() => {
+                  setNotesTrue(true);
+                }, 1000)
+              }
             >
               <div className="notes-center">
                 <img

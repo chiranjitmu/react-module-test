@@ -106,7 +106,7 @@ const Group = ({ handleGroupClickinterval }) => {
             className="group-name-data"
             onClick={() => handleGroupClick(index)}
             style={{
-              backgroundColor: presentGroupIndex === index ? "gray" : "",
+              backgroundColor: presentGroupIndex === index ? "#D3D3D3" : "",
               borderRadius: presentGroupIndex === index ? "10px" : "",
               padding: presentGroupIndex === index ? "0.3rem" : "",
             }}
