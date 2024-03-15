@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import "./Group.css";
 import Modal from "react-modal";
 import { FaPlusCircle } from "react-icons/fa";
@@ -14,7 +14,7 @@ const colorNames = [
   "#6691FF",
 ];
 
-const Group = () => {
+const Group = ({ handleGroupClickinterval }) => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [group, setGroup] = useState({
     groupname: "",
@@ -93,6 +93,7 @@ const Group = () => {
       "PresentGroup",
       JSON.stringify(groupData.current[index])
     );
+    handleGroupClickinterval(index);
   };
 
   return (

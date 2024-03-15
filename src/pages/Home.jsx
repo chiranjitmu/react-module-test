@@ -6,6 +6,12 @@ import "./Home.css";
 const Home = () => {
   const [notesTrue, setNotesTrue] = useState(false);
   const [isSmallScreen, setIsSmallScreen] = useState(false);
+  const [selectedGroup, setSelectedGroup] = useState(null);
+
+  const handleGroupClickinterval = (clicked) => {
+    setSelectedGroup(clicked);
+    setNotesTrue(true)
+  };
 
   const handleBack = () => {
     setNotesTrue(false);
@@ -29,14 +35,14 @@ const Home = () => {
         className="group-main"
         style={isSmallScreen ? { display: notesTrue ? "none" : "block" } : {}}
       >
-        <Group />
+        <Group handleGroupClickinterval={handleGroupClickinterval} />
       </aside>
 
       <section
         className="notes-main"
         style={isSmallScreen ? { display: notesTrue ? "block" : "none" } : {}}
       >
-        <Notes handleBack={handleBack} />
+        <Notes handleBack={handleBack} selectedGroup={selectedGroup} />
       </section>
     </main>
   );
