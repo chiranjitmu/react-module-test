@@ -42,7 +42,7 @@
   margin-inline: 1rem;
 }
 
-.notes-datastore{
+.notes-datastore {
   border-radius: 4px;
   background-color: #ffffff;
 }
@@ -59,7 +59,7 @@
   box-sizing: border-box;
 }
 
-.notes-timestamp{
+.notes-timestamp {
   font-family: "Roboto", sans-serif;
   font-weight: 400;
   font-size: small;
@@ -74,6 +74,9 @@
 
 .footer-section {
   height: 19.5%;
+  position: absolute;
+  width: 75%;
+  bottom: 0;
   background-color: #001f8b;
   display: flex;
   justify-content: center;
@@ -151,6 +154,10 @@
 }
 
 @media screen and (max-width: 800px) {
+  .footer-section {
+    width: 100%;
+  }
+
   .back-icon {
     display: block;
     font-size: x-large;
