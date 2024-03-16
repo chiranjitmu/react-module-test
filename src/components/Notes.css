@@ -97,9 +97,9 @@
 
 .send-icon {
   color: #001f8b;
-  position: relative;
-  right: 2.7rem;
-  top: 1.7rem;
+  position: absolute;
+  right: 1.5rem;
+  bottom: 1.7rem;
   font-size: larger;
   background-color: transparent;
   border: none;
