@@ -57,9 +57,9 @@ const Notes = ({ handleBack, selectedGroup }) => {
     const now = new Date();
     const options = { day: "numeric", month: "short", year: "numeric" };
     const formattedDate = now
-      .toLocaleDateString("en-US", options)
+      .toLocaleDateString("en-IN", options)
       .replace(",", "");
-    const formattedTime = now.toLocaleTimeString("en-US", {
+    const formattedTime = now.toLocaleTimeString("en-IN", {
       hour: "numeric",
       minute: "2-digit",
       hour12: true,
