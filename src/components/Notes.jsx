@@ -12,7 +12,6 @@ const Notes = ({ handleBack, selectedGroup }) => {
   const [notesList, setNotesList] = useState([]);
   const notesContainerRef = useRef();
   const [isSmallScreen, setIsSmallScreen] = useState(false);
-  let Groupclicked = selectedGroup;
 
   useEffect(() => {
     const handleResize = () => {
@@ -33,7 +32,12 @@ const Notes = ({ handleBack, selectedGroup }) => {
     );
     setNotesList(filteredNotes);
     setNotesTrue(filteredNotes.length > 0);
-  }, [Groupclicked]);
+    if (filteredNotes.length <= 0) {
+      setTimeout(() => {
+        setNotesTrue(true);
+      }, 1000);
+    }
+  }, [selectedGroup]);
 
   const scrollToBottom = () => {
     setTimeout(() => {
@@ -64,17 +68,19 @@ const Notes = ({ handleBack, selectedGroup }) => {
       minute: "2-digit",
       hour12: true,
     });
-    const formattedDateTime = `${formattedDate}, ${formattedTime}`;
 
     const newNote = {
       notesData,
-      timeStamp: formattedDateTime,
+      date: formattedDate,
+      time: formattedTime.toUpperCase(),
       groupName: presentgroup.groupname || "",
     };
+
     const storedNotes = JSON.parse(localStorage.getItem("GroupNotes")) || [];
     const updatedNotes = [...storedNotes, newNote];
     localStorage.setItem("GroupNotes", JSON.stringify(updatedNotes));
     setNotesData("");
+
     const filteredNotes = updatedNotes.filter(
       (note) => note.groupName === presentgroup.groupname
     );
@@ -115,7 +121,11 @@ const Notes = ({ handleBack, selectedGroup }) => {
               >
                 <div className="notes-datastore">
                   <p className="notes-data">{data.notesData}</p>
-                  <p className="notes-timestamp">{data.timeStamp}</p>
+                  <p className="notes-timestamp">
+                    {data.date}
+                    <span className="time-dot"></span>
+                    {data.time}
+                  </p>
                 </div>
               </div>
             ))}
@@ -147,14 +157,7 @@ const Notes = ({ handleBack, selectedGroup }) => {
       ) : (
         <>
           {!isSmallScreen ? (
-            <div
-              className="notes-container"
-              onMouseEnter={() =>
-                setTimeout(() => {
-                  setNotesTrue(true);
-                }, 1000)
-              }
-            >
+            <div className="notes-container">
               <div className="notes-center">
                 <img
                   src={Notesimg}
@@ -203,7 +206,11 @@ const Notes = ({ handleBack, selectedGroup }) => {
                   >
                     <div className="notes-datastore">
                       <p className="notes-data">{data.notesData}</p>
-                      <p className="notes-timestamp">{data.timeStamp}</p>
+                      <p className="notes-timestamp">
+                        {data.date}
+                        <span className="time-dot"></span>
+                        {data.time}
+                      </p>
                     </div>
                   </div>
                 ))}
